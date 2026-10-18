@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Branches - CasaHub Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+    <h2 class="section-title">Explore Our Branches</h2>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <a class="branch-link" href="casacraft.html" target="main">
+                <img src="pics/craft.jpg" alt="CasaCraft handmade bracelets">
+                <h3>CasaCraft</h3>
+                <p>Handmade crafts and accessories</p>
+                <span class="shop-button">Explore Shop</span>
+            </a>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/casaart.jpg" alt="CasaArts">
+            <h3>CasaArts</h3>
+            <p>Art and creative designs</p>
+            <button class="action-button" onclick="comingSoon('CasaArts')">Coming Soon</button>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/bites.jpg" alt="CasaBites">
+            <h3>CasaBites</h3>
+            <p>Meals and delicious food</p>
+            <button class="action-button" onclick="comingSoon('CasaBites')">Coming Soon</button>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/delights.jpg" alt="CasaDelights">
+            <h3>CasaDelights</h3>
+            <p>Pastries and sweet treats</p>
+            <button class="action-button" onclick="comingSoon('CasaDelights')">Coming Soon</button>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/fits.jpg" alt="CasaFits">
+            <h3>CasaFits</h3>
+            <p>Fashion and outfits</p>
+            <button class="action-button" onclick="comingSoon('CasaFits')">Coming Soon</button>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/notes.jpg" alt="CasaNotes">
+            <h3>CasaNotes</h3>
+            <p>Stationery and school essentials</p>
+            <button class="action-button" onclick="comingSoon('CasaNotes')">Coming Soon</button>
+        </div>
+    </div>
+</div>
+
+<div class="image-overlay" id="imageOverlay" role="dialog" aria-modal="true" aria-label="Enlarged picture">
+    <button class="image-close" type="button" aria-label="Close picture">&times;</button>
+    <img id="enlargedImage" src="" alt="">
+    <p class="image-caption" id="imageCaption"></p>
+</div>
+
+<script>
+function comingSoon(branch) {
+    alert(branch + " is coming soon!");
+}
+
+(function () {
+    const overlay = document.getElementById("imageOverlay");
+    const bigImage = document.getElementById("enlargedImage");
+    const caption = document.getElementById("imageCaption");
+
+    document.querySelectorAll(".product-card img").forEach(function (img) {
+        img.addEventListener("click", function () {
+            bigImage.src = img.src;
+            bigImage.alt = img.alt;
+            caption.textContent = img.alt;
+            overlay.style.display = "flex";
+        });
+    });
+
+    function closeImage() {
+        overlay.style.display = "none";
+        bigImage.src = "";
+    }
+
+    overlay.querySelector(".image-close").addEventListener("click", closeImage);
+    overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) closeImage();
+    });
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") closeImage();
+    });
+})();
+</script>
+</body>
+</html>

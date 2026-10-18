@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CasaCraft Shop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+    <a href="products.html" target="main" class="back-link">← Back to Branches</a>
+
+    <section class="welcome">
+        <h2>Welcome to CasaCraft</h2>
+        <p>Handmade creations made with love.</p>
+    </section>
+
+    <h2 class="section-title">Our Products</h2>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="pics/bead.webp" alt="Beaded Bracelets">
+            <h3>Beaded Bracelets</h3>
+            <p class="price">₱50.00</p>
+            <button class="action-button" data-name="Beaded Bracelets" onclick="saveProduct('Beaded Bracelets',50,this)">♡ Add to Collection</button>
+            <button class="shop-button" onclick="openOrder('Beaded Bracelets')">Order Now</button>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/keychains.jpg" alt="Keychains">
+            <h3>Keychains</h3>
+            <p class="price">₱35.00</p>
+            <button class="action-button" data-name="Keychains" onclick="saveProduct('Keychains',35,this)">♡ Add to Collection</button>
+            <button class="shop-button" onclick="openOrder('Keychains')">Order Now</button>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/flower.jpg" alt="Crochet Flowers">
+            <h3>Crochet Flowers</h3>
+            <p class="price">₱80.00</p>
+            <button class="action-button" data-name="Crochet Flowers" onclick="saveProduct('Crochet Flowers',80,this)">♡ Add to Collection</button>
+            <button class="shop-button" onclick="openOrder('Crochet Flowers')">Order Now</button>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/friend.webp" alt="Friendship Bracelets">
+            <h3>Friendship Bracelets</h3>
+            <p class="price">₱40.00</p>
+            <button class="action-button" data-name="Friendship Bracelets" onclick="saveProduct('Friendship Bracelets',40,this)">♡ Add to Collection</button>
+            <button class="shop-button" onclick="openOrder('Friendship Bracelets')">Order Now</button>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/charm.webp" alt="Phone Charms">
+            <h3>Phone Charms</h3>
+            <p class="price">₱45.00</p>
+            <button class="action-button" data-name="Phone Charms" onclick="saveProduct('Phone Charms',45,this)">♡ Add to Collection</button>
+            <button class="shop-button" onclick="openOrder('Phone Charms')">Order Now</button>
+        </div>
+
+        <div class="product-card">
+            <img src="pics/bag.avif" alt="Bag Charms">
+            <h3>Bag Charms</h3>
+            <p class="price">₱60.00</p>
+            <button class="action-button" data-name="Bag Charms" onclick="saveProduct('Bag Charms',60,this)">♡ Add to Collection</button>
+            <button class="shop-button" onclick="openOrder('Bag Charms')">Order Now</button>
+        </div>
+    </div>
+</div>
+
+<!-- ORDER POPUP -->
+<div id="orderPopup" class="order-overlay" role="dialog"
+     aria-modal="true" aria-labelledby="orderTitle">
+    <div class="order-popup">
+        <button type="button" id="closePopup" class="close-popup"
+                aria-label="Close order form">&times;</button>
+
+        <h2 id="orderTitle">Place Your Order</h2>
+        <p>Complete this form to prepare your sample order.</p>
+
+        <form id="orderForm" class="order-form">
+            <label for="fullname">Full Name</label>
+            <input id="fullname" name="fullname" type="text" required>
+
+            <label for="phone">Contact Number</label>
+            <input id="phone" name="phone" type="tel" required>
+
+            <label for="address">Complete Address</label>
+            <textarea id="address" name="address" rows="2" required></textarea>
+
+            <label for="product">Product</label>
+            <select id="product" name="product" required>
+                <option value="Beaded Bracelets">Beaded Bracelets — ₱50</option>
+                <option value="Keychains">Keychains — ₱35</option>
+                <option value="Crochet Flowers">Crochet Flowers — ₱80</option>
+                <option value="Friendship Bracelets">Friendship Bracelets — ₱40</option>
+                <option value="Phone Charms">Phone Charms — ₱45</option>
+                <option value="Bag Charms">Bag Charms — ₱60</option>
+            </select>
+
+            <label for="quantity">Quantity</label>
+            <input id="quantity" name="quantity" type="number"
+                   min="1" max="99" value="1" required>
+
+            <p class="popup-total">Total: ₱<span id="total">50.00</span></p>
+
+            <label for="payment">Payment Method</label>
+            <select id="payment" name="payment" required>
+                <option value="Cash on Delivery">Cash on Delivery</option>
+                <option value="GCash (demo only)">GCash (demo only)</option>
+            </select>
+
+            <label for="notes">Additional Notes (Optional)</label>
+            <textarea id="notes" name="notes" rows="2"
+                      placeholder="Any special requests?"></textarea>
+
+            <button class="shop-button" type="submit">Submit Sample Order</button>
+            <button class="cancel-button" type="button" id="cancelOrder">Cancel Order</button>
+            <p id="orderMessage" class="message" aria-live="polite"></p>
+        </form>
+    </div>
+</div>
+
+<!-- ENLARGED PICTURE POPUP -->
+<div class="image-overlay" id="imageOverlay" role="dialog"
+     aria-modal="true" aria-label="Enlarged product picture">
+    <button class="image-close" type="button" aria-label="Close picture">&times;</button>
+    <img id="enlargedImage" src="" alt="">
+    <p class="image-caption" id="imageCaption"></p>
+</div>
+
+<script>
+(function () {
+    const prices = {
+        "Beaded Bracelets": 50,
+        "Keychains": 35,
+        "Crochet Flowers": 80,
+        "Friendship Bracelets": 40,
+        "Phone Charms": 45,
+        "Bag Charms": 60
+    };
+
+    const popup = document.getElementById("orderPopup");
+    const form = document.getElementById("orderForm");
+    const product = document.getElementById("product");
+    const quantity = document.getElementById("quantity");
+    const total = document.getElementById("total");
+    const message = document.getElementById("orderMessage");
+
+    function getCollection() {
+        try {
+            return JSON.parse(localStorage.getItem("casaCollection") || "[]");
+        } catch (error) {
+            return [];
+        }
+    }
+
+    function updateCollectionButtons() {
+        const items = getCollection();
+
+        document.querySelectorAll(".action-button[data-name]").forEach(button => {
+            const saved = items.some(item => item.name === button.dataset.name);
+
+            button.textContent = saved
+                ? "♥ Added to Collection"
+                : "♡ Add to Collection";
+
+            button.setAttribute("aria-pressed", String(saved));
+        });
+    }
+
+    // Click once to add, click again to remove. No popup.
+    window.saveProduct = function (name, price) {
+        const items = getCollection();
+        const index = items.findIndex(item => item.name === name);
+
+        if (index === -1) {
+            items.push({ name: name, price: price });
+        } else {
+            items.splice(index, 1);
+        }
+
+        try {
+            localStorage.setItem("casaCollection", JSON.stringify(items));
+            updateCollectionButtons();
+        } catch (error) {
+            // Leave the page design unchanged if saving is unavailable.
+        }
+    };
+
+    function updateTotal() {
+        let count = Number(quantity.value);
+
+        if (!Number.isInteger(count) || count < 1) count = 1;
+        if (count > 99) count = 99;
+
+        quantity.value = count;
+        total.textContent = (prices[product.value] * count).toFixed(2);
+    }
+
+    window.openOrder = function (name) {
+        form.reset();
+        product.value = name;
+        quantity.value = 1;
+        message.textContent = "";
+        form.querySelector("button[type='submit']").textContent = "Submit Sample Order";
+        updateTotal();
+        popup.style.display = "flex";
+        document.getElementById("fullname").focus();
+    };
+
+    function closeOrder() {
+        popup.style.display = "none";
+        form.reset();
+        message.textContent = "";
+        updateTotal();
+    }
+
+    document.getElementById("closePopup").addEventListener("click", closeOrder);
+    document.getElementById("cancelOrder").addEventListener("click", closeOrder);
+    product.addEventListener("change", updateTotal);
+    quantity.addEventListener("input", updateTotal);
+
+    popup.addEventListener("click", function (event) {
+        if (event.target === popup) closeOrder();
+    });
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (!form.reportValidity()) return;
+
+        const customer = document.getElementById("fullname").value.trim();
+        const item = product.value;
+        const count = Number(quantity.value);
+        const amount = total.textContent;
+
+        message.textContent =
+            "Sample order prepared for " + customer + ": " +
+            count + " × " + item + ". Total: ₱" + amount +
+            ". No real order or payment was sent.";
+
+        form.querySelector("button[type='submit']").textContent = "Order Prepared";
+    });
+
+    // Enlarge any product picture when clicked.
+    const overlay = document.getElementById("imageOverlay");
+    const bigImage = document.getElementById("enlargedImage");
+    const caption = document.getElementById("imageCaption");
+
+    document.querySelectorAll(".product-card img").forEach(function (img) {
+        img.addEventListener("click", function () {
+            bigImage.src = img.src;
+            bigImage.alt = img.alt;
+            caption.textContent = img.alt;
+            overlay.style.display = "flex";
+        });
+    });
+
+    function closeImage() {
+        overlay.style.display = "none";
+        bigImage.src = "";
+    }
+
+    overlay.querySelector(".image-close").addEventListener("click", closeImage);
+    overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) closeImage();
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeImage();
+            if (popup.style.display === "flex") closeOrder();
+        }
+    });
+
+    updateCollectionButtons();
+    updateTotal();
+})();
+</script>
+</body>
+</html>

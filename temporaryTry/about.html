@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About - CasaHub Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+    <h2>About CasaHub Studio</h2>
+
+    <div class="about-layout">
+        <div>
+            <h3>About Us</h3>
+            <p>
+                Welcome to CasaHub Studio, a creative space that brings
+                different products and ideas together in one place.
+                Our branches include crafts, art, food, pastries,
+                fashion, and stationery.
+            </p>
+
+            <h3>Why I Created CasaHub Studio</h3>
+            <p>
+                I created CasaHub Studio to bring my different creative
+                interests together in one website. I wanted to create a
+                place where people can explore products, discover new
+                ideas, and appreciate creativity.
+            </p>
+
+            <h3>Our Branches</h3>
+            <p><strong>CasaCraft:</strong> Handmade crafts and accessories.</p>
+            <p><strong>CasaArts:</strong> Art and creative designs.</p>
+            <p><strong>CasaBites:</strong> Meals and food.</p>
+            <p><strong>CasaDelights:</strong> Pastries and sweet treats.</p>
+            <p><strong>CasaFits:</strong> Fashion and outfits.</p>
+            <p><strong>CasaNotes:</strong> Stationery and school supplies.</p>
+        </div>
+
+        <div>
+            <!-- logo -->
+            <img class="about-photo" src="pics/hub.png"
+                 alt="Photo of the creator of CasaHub Studio">
+            <p style="text-align:center;">
+                <strong>Logo</strong>
+            </p>
+        </div>
+    </div>
+
+    <h3>Find Us on the Map</h3>
+    <p>
+        This map shows Antartica AHAHAH.
+    </p>
+
+    <iframe class="map-frame"
+        <iframe src="https://www.google.com/maps/embed?pb=!4v1792326065256!6m8!1m7!1s5xpiwu1QP8hzqQBB0pr6LQ!2m2!1d-65.17411571491436!2d-64.1377315272329!3f320!4f20!5f0.7820865974627469" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>        
+        title="Map"
+        allowfullscreen>
+    </iframe>
+
+    <section>
+        <h3>References</h3>
+        <p>Click below to view the picture sources used for this website.</p>
+        <a class="shop-button" href="references.html" target="main">
+            View Picture References →
+        </a>
+    </section>
+</div>
+
+<div class="image-overlay" id="imageOverlay" role="dialog"
+     aria-modal="true" aria-label="Enlarged picture">
+    <button class="image-close" type="button" aria-label="Close picture">&times;</button>
+    <img id="enlargedImage" src="" alt="">
+    <p class="image-caption" id="imageCaption"></p>
+</div>
+
+<script>
+(function () {
+    const photo = document.querySelector(".about-photo");
+    const overlay = document.getElementById("imageOverlay");
+    const bigImage = document.getElementById("enlargedImage");
+    const caption = document.getElementById("imageCaption");
+
+    photo.addEventListener("click", function () {
+        bigImage.src = photo.src;
+        bigImage.alt = photo.alt;
+        caption.textContent = photo.alt;
+        overlay.style.display = "flex";
+    });
+
+    function closeImage() {
+        overlay.style.display = "none";
+        bigImage.src = "";
+    }
+
+    overlay.querySelector(".image-close").addEventListener("click", closeImage);
+    overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) closeImage();
+    });
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") closeImage();
+    });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Collection - CasaHub Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+    <h2>My Collection ♡</h2>
+    <p>Your favorite products, saved for later.</p>
+    <div id="collectionItems" class="product-grid"></div>
+    <p id="emptyMessage" class="empty-message">
+        Your collection is empty. Visit CasaCraft and save a product!
+    </p>
+</div>
+
+<script>
+(function () {
+    const container = document.getElementById("collectionItems");
+    const empty = document.getElementById("emptyMessage");
+
+    function readItems() {
+        try {
+            return JSON.parse(localStorage.getItem("casaCollection") || "[]");
+        } catch (error) {
+            return [];
+        }
+    }
+
+    function displayItems() {
+        const items = readItems();
+        container.innerHTML = "";
+        empty.style.display = items.length ? "none" : "block";
+
+        items.forEach(function (item) {
+            const card = document.createElement("div");
+            card.className = "product-card";
+
+            const title = document.createElement("h3");
+            title.textContent = item.name;
+
+            const price = document.createElement("p");
+            price.className = "price";
+            price.textContent = "₱" + Number(item.price).toFixed(2);
+
+            const remove = document.createElement("button");
+            remove.className = "action-button";
+            remove.textContent = "Remove from Collection";
+
+            remove.addEventListener("click", function () {
+                const updated = readItems().filter(saved => saved.name !== item.name);
+                try {
+                    localStorage.setItem("casaCollection", JSON.stringify(updated));
+                    displayItems();
+                } catch (error) {
+                    alert("Could not update your collection.");
+                }
+            });
+
+            card.append(title, price, remove);
+            container.appendChild(card);
+        });
+    }
+
+    displayItems();
+})();
+</script>
+</body>
+</html>
