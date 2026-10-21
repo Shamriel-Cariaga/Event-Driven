@@ -10,7 +10,6 @@
 <body>
 
 <div class="page">
-
     <a href="products.html" target="main" class="back-link">
         Back to Branches
     </a>
@@ -27,6 +26,10 @@
         <div class="product-card">
             <img src="pics/bead.webp" alt="Beaded Bracelets">
             <h3>Beaded Bracelets</h3>
+            <p class="description">
+                Colorful handmade bracelets made with beads,
+                perfect for everyday wear or as a small gift.
+            </p>
             <p class="price">₱50.00</p>
             <button class="action-button"
                     onclick="saveProduct('Beaded Bracelets')">
@@ -41,6 +44,9 @@
         <div class="product-card">
             <img src="pics/keychains.jpg" alt="Keychains">
             <h3>Keychains</h3>
+            <p class="description">
+                Cute and colorful accessories that you can attach to your keys or bag.
+            </p>
             <p class="price">₱35.00</p>
             <button class="action-button"
                     onclick="saveProduct('Keychains')">
@@ -55,6 +61,9 @@
         <div class="product-card">
             <img src="pics/flower.jpg" alt="Crochet Flowers">
             <h3>Crochet Flowers</h3>
+            <p class="description">
+                Handmade yarn flowers that make thoughtful gifts and lovely decorations.
+            </p>
             <p class="price">₱80.00</p>
             <button class="action-button"
                     onclick="saveProduct('Crochet Flowers')">
@@ -69,6 +78,9 @@
         <div class="product-card">
             <img src="pics/friend.webp" alt="Friendship Bracelets">
             <h3>Friendship Bracelets</h3>
+            <p class="description">
+                Matching or colorful bracelets that symbolize friendship and special memories.
+            </p>
             <p class="price">₱40.00</p>
             <button class="action-button"
                     onclick="saveProduct('Friendship Bracelets')">
@@ -83,6 +95,9 @@
         <div class="product-card">
             <img src="pics/charm.webp" alt="Phone Charms">
             <h3>Phone Charms</h3>
+            <p class="description">
+                Decorative charms or beads that add a personal touch to your phone.
+            </p>
             <p class="price">₱45.00</p>
             <button class="action-button"
                     onclick="saveProduct('Phone Charms')">
@@ -97,6 +112,9 @@
         <div class="product-card">
             <img src="pics/bag.avif" alt="Bag Charms">
             <h3>Bag Charms</h3>
+            <p class="description">
+                Small decorative accessories that make your bag look more unique.
+            </p>
             <p class="price">₱60.00</p>
             <button class="action-button"
                     onclick="saveProduct('Bag Charms')">
@@ -110,122 +128,7 @@
 
     </div>
 
-    <section id="orderSection" class="order-section">
-        <h2>Place Your Order</h2>
-        <p id="selectedProduct">Select a product to begin.</p>
-
-        <form onsubmit="placeOrder(event)">
-
-            <label for="fullname">Full Name</label>
-            <input type="text" id="fullname" required>
-
-            <label for="phone">Contact Number</label>
-            <input type="tel" id="phone" required>
-
-            <label for="address">Complete Address</label>
-            <textarea id="address" rows="2" required></textarea>
-
-            <label for="product">Product</label>
-            <select id="product" onchange="updateTotal()" required>
-                <option value="Beaded Bracelets">Beaded Bracelets</option>
-                <option value="Keychains">Keychains</option>
-                <option value="Crochet Flowers">Crochet Flowers</option>
-                <option value="Friendship Bracelets">Friendship Bracelets</option>
-                <option value="Phone Charms">Phone Charms</option>
-                <option value="Bag Charms">Bag Charms</option>
-            </select>
-
-            <label for="quantity">Quantity</label>
-            <input type="number" id="quantity" min="1" max="99"
-                   value="1" onchange="updateTotal()"
-                   oninput="updateTotal()" required>
-
-            <p class="price">
-                Total: ₱<span id="total">50.00</span>
-            </p>
-
-            <label for="payment">Payment Method</label>
-            <select id="payment">
-                <option>Cash on Delivery</option>
-                <option>GCash (Demo Only)</option>
-            </select>
-
-            <label for="notes">Additional Notes</label>
-            <textarea id="notes" rows="2"></textarea>
-
-            <button type="submit" class="shop-button">
-                Submit Sample Order
-            </button>
-
-        </form>
-
-        <p id="orderMessage"></p>
-    </section>
-
 </div>
-
-<script>
-function saveProduct(name) {
-    alert(name + " selected for your collection!");
-}
-
-function openOrder(name) {
-    document.getElementById("product").value = name;
-    document.getElementById("selectedProduct").textContent =
-        "You selected: " + name;
-
-    updateTotal();
-
-    document.getElementById("orderSection").scrollIntoView();
-}
-
-function updateTotal() {
-    var product = document.getElementById("product").value;
-    var quantity = Number(document.getElementById("quantity").value);
-    var price = 0;
-
-    if (product == "Beaded Bracelets") {
-        price = 50;
-    } else if (product == "Keychains") {
-        price = 35;
-    } else if (product == "Crochet Flowers") {
-        price = 80;
-    } else if (product == "Friendship Bracelets") {
-        price = 40;
-    } else if (product == "Phone Charms") {
-        price = 45;
-    } else if (product == "Bag Charms") {
-        price = 60;
-    }
-
-    if (quantity < 1 || isNaN(quantity)) {
-        quantity = 1;
-    }
-
-    if (quantity > 99) {
-        quantity = 99;
-    }
-
-    document.getElementById("quantity").value = quantity;
-
-    document.getElementById("total").textContent =
-        (price * quantity).toFixed(2);
-}
-
-function placeOrder(event) {
-    event.preventDefault();
-
-    var name = document.getElementById("fullname").value;
-    var product = document.getElementById("product").value;
-    var quantity = document.getElementById("quantity").value;
-    var total = document.getElementById("total").textContent;
-
-    document.getElementById("orderMessage").textContent =
-        "Sample order prepared for " + name + ". " +
-        quantity + " x " + product + ". Total: ₱" + total +
-        ". No real order was sent.";
-}
-</script>
 
 </body>
 </html>

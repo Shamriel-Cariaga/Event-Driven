@@ -27,7 +27,7 @@ body {
 
 .header h1 {
     margin: 0;
-    font-family: Georgia, serif;
+    font-family: Harrington, serif;
     font-size: 42px;
 }
 
@@ -209,45 +209,6 @@ body {
     background: #49352A;
 }
 
-/* ORDER FORM */
-
-.order-section {
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    background: #F7F0E3;
-    border-radius: 12px;
-}
-
-.order-section h2 {
-    margin-top: 0;
-}
-
-.order-section label {
-    display: block;
-    margin: 12px 0 5px;
-    font-weight: bold;
-}
-
-.order-section input,
-.order-section textarea,
-.order-section select {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #CDB9A5;
-    border-radius: 6px;
-    background: white;
-    color: #49352A;
-    font: inherit;
-}
-
-#orderMessage {
-    color: #42623D;
-    font-weight: bold;
-    line-height: 1.5;
-}
-
 /* ABOUT PAGE */
 
 .about-layout {
@@ -259,10 +220,10 @@ body {
 
 .about-photo {
     display: block;
-    width: 100%;
+    width: 50%;
     max-width: 320px;
     max-height: 380px;
-    margin: 0 auto;
+    margin: 20 auto;
     object-fit: contain;
     border: 4px solid #E3D3C2;
     border-radius: 12px;
@@ -345,3 +306,34 @@ body {
         padding: 15px;
     }
 }
+
+
+.contact-section {
+    max-width: 500px;
+    margin: 40px;
+    padding: 10px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 5px;
+    border: 1px solid #D8C7B8;
+    border-radius: 5px;
+    font: inherit;
+}
+
+.contact-form button {
+    padding: 10px;
+    background-color: #B86F52;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
